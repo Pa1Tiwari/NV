@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NV — Traditional Indian Wear</title>
+<meta name="description" content="NV is a home for handwoven sarees, lehengas, kurta sets and menswear rooted in India's weaving traditions.">
+
+<!-- Fonts: Cormorant for heritage/display, Cormorant SC for inscription-style labels, Jost for clean modern body -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="assets/nv-logo-mark.png">
+
+<!-- Supabase client (UMD build) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- ============ TOASTS ============ -->
+<div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <button class="icon-btn mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+
+    <a href="#top" class="logo" aria-label="NV home">
+      <img src="assets/nv-logo-mark-dark.png" alt="NV" class="logo-mark-img">
+      <span class="logo-tag">Traditional Indian Wear</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#featured" data-filter="saree">Sarees</a></li>
+        <li><a href="#featured" data-filter="lehenga">Lehengas</a></li>
+        <li><a href="#featured" data-filter="kurta-set">Kurta Sets</a></li>
+        <li><a href="#featured" data-filter="men">Men</a></li>
+        <li><a href="#featured" data-filter="dupatta">Dupattas &amp; Stoles</a></li>
+        <li><a href="#featured" data-filter="bridal" class="nav-accent">Bridal Edit</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn list-product-btn" id="listProductToggle" aria-label="List a product" hidden title="List a product">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="21" y1="21" x2="16.2" y2="16.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="accountToggle" aria-label="Account">
+        <svg viewBox="0 0 24 24" width="19" height="19"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c1.6-4 5-6 8-6s6.4 2 8 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn cart-btn" id="cartToggle" aria-label="Open bag">
+        <svg viewBox="0 0 24 24" width="19" height="19"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-panel" id="searchPanel">
+    <div class="search-panel-inner">
+      <input type="search" id="searchInput" placeholder="Search for sarees, kurtas, fabrics, colours…" aria-label="Search products">
+      <button class="icon-btn" id="searchClose" aria-label="Close search">&times;</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE NAV ============ -->
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="#featured" data-filter="saree">Sarees</a></li>
+    <li><a href="#featured" data-filter="lehenga">Lehengas</a></li>
+    <li><a href="#featured" data-filter="kurta-set">Kurta Sets</a></li>
+    <li><a href="#featured" data-filter="men">Men</a></li>
+    <li><a href="#featured" data-filter="dupatta">Dupattas &amp; Stoles</a></li>
+    <li><a href="#featured" data-filter="bridal">Bridal Edit</a></li>
+    <li><a href="#featured" data-filter="all">Shop All</a></li>
+  </ul>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-pattern" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="eyebrow">Est. for the modern heirloom</span>
+      <h1 class="hero-heading">
+        <span class="line">Woven by hand.</span>
+        <span class="line">Worn with intent.</span>
+      </h1>
+      <p class="hero-sub">NV brings together sarees, lehengas and kurta sets sourced directly from weaving clusters across India — chosen for craft, not trend cycles.</p>
+      <div class="hero-cta">
+        <a href="#featured" class="btn btn-primary">Shop the Edit</a>
+        <a href="#craft" class="btn btn-ghost">Our Craft</a>
+      </div>
+    </div>
+    <div class="hero-motif" aria-hidden="true">
+      <svg viewBox="0 0 320 420" class="paisley paisley-hero">
+        <use href="#paisley-path"></use>
+      </svg>
+    </div>
+    <a href="#categories" class="scroll-cue" aria-label="Scroll down">
+      <span></span>
+    </a>
+  </section>
+
+  <!-- shared paisley path definition, reused as the site's signature motif -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <path id="paisley-path" d="M160 30
+        C 90 30 40 90 45 165
+        C 50 235 105 275 150 300
+        C 190 322 205 350 190 375
+        C 178 396 150 400 130 388
+        C 145 405 175 412 200 400
+        C 232 385 235 350 210 322
+        C 180 288 130 258 118 200
+        C 108 150 140 95 195 88
+        C 245 82 280 118 278 165
+        C 277 190 262 208 240 212
+        C 255 222 278 216 289 196
+        C 305 166 292 118 250 92
+        C 222 74 190 66 160 30 Z" />
+    </defs>
+  </svg>
+
+  <!-- ============ CATEGORY RAIL ============ -->
+  <section class="category-rail" id="categories" aria-label="Shop by category">
+    <div class="section-head">
+      <span class="eyebrow eyebrow-dark">Shop by category</span>
+      <h2>Six wardrobes, one thread of craft</h2>
+    </div>
+    <div class="rail" id="categoryRail">
+      <!-- category cards injected by script.js; static fallback below -->
+      <a class="cat-card cat-saree" href="#featured" data-filter="saree"><span>Sarees</span></a>
+      <a class="cat-card cat-lehenga" href="#featured" data-filter="lehenga"><span>Lehengas</span></a>
+      <a class="cat-card cat-kurta" href="#featured" data-filter="kurta-set"><span>Kurta Sets</span></a>
+      <a class="cat-card cat-men" href="#featured" data-filter="men"><span>Men</span></a>
+      <a class="cat-card cat-dupatta" href="#featured" data-filter="dupatta"><span>Dupattas &amp; Stoles</span></a>
+      <a class="cat-card cat-bridal" href="#featured" data-filter="bridal"><span>Bridal Edit</span></a>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PRODUCTS ============ -->
+  <section class="featured" id="featured">
+    <div class="divider-row" aria-hidden="true">
+      <span class="divider-line"></span>
+      <svg viewBox="0 0 320 420" class="paisley paisley-tiny"><use href="#paisley-path"></use></svg>
+      <span class="divider-line"></span>
+    </div>
+
+    <div class="section-head">
+      <span class="eyebrow eyebrow-dark">The edit</span>
+      <h2>Handpicked this season</h2>
+    </div>
+
+    <div class="filter-chips" id="filterChips">
+      <button class="chip is-active" data-filter="all">All</button>
+      <button class="chip" data-filter="saree">Sarees</button>
+      <button class="chip" data-filter="lehenga">Lehengas</button>
+      <button class="chip" data-filter="kurta-set">Kurta Sets</button>
+      <button class="chip" data-filter="men">Men</button>
+      <button class="chip" data-filter="dupatta">Dupattas</button>
+      <button class="chip" data-filter="bridal">Bridal</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <!-- product cards injected by script.js -->
+      <div class="grid-status" id="gridStatus">Loading the edit…</div>
+    </div>
+
+    <div class="load-more-wrap">
+      <button class="btn btn-outline" id="loadMoreBtn" hidden>Load more</button>
+    </div>
+  </section>
+
+  <!-- ============ CRAFT / STORY BAND ============ -->
+  <section class="craft" id="craft">
+    <div class="craft-motif" aria-hidden="true">
+      <svg viewBox="0 0 320 420" class="paisley paisley-craft"><use href="#paisley-path"></use></svg>
+    </div>
+    <div class="craft-content">
+      <span class="eyebrow eyebrow-dark">Why NV</span>
+      <h2>Every piece has a village, a loom and a name behind it</h2>
+      <p>We work with small ateliers and weaving clusters — Banarasi, Kanjivaram, Chanderi, Bandhani, Ajrakh and more — and buy in small batches instead of mass runs. No two dye lots are identical, and that's the point.</p>
+      <ul class="craft-points">
+        <li><strong>Direct from the source.</strong> We pay weavers before we list the piece, not after it sells.</li>
+        <li><strong>Real fabric notes.</strong> Every listing states the weave, dye method and care instructions honestly.</li>
+        <li><strong>Small batches.</strong> Limited counts per design, so your piece stays yours.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  <section class="newsletter">
+    <div class="newsletter-inner">
+      <span class="eyebrow">Stay woven in</span>
+      <h2>New arrivals, once a week. No noise.</h2>
+      <form id="newsletterForm" class="newsletter-form">
+        <input type="email" id="newsletterEmail" required placeholder="you@email.com" aria-label="Email address">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <p class="newsletter-note" id="newsletterNote"></p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-divider" aria-hidden="true">
+    <svg viewBox="0 0 320 420" class="paisley paisley-tiny paisley-light"><use href="#paisley-path"></use></svg>
+  </div>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand">
+      <img src="assets/nv-logo-mark.png" alt="NV" class="logo-mark-img logo-mark-img-light">
+      <p>A small, considered home for traditional Indian clothing — sarees, lehengas, kurta sets and menswear, sourced with the weaver in view.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Shop</h3>
+      <ul>
+        <li><a href="#featured" data-filter="saree">Sarees</a></li>
+        <li><a href="#featured" data-filter="lehenga">Lehengas</a></li>
+        <li><a href="#featured" data-filter="kurta-set">Kurta Sets</a></li>
+        <li><a href="#featured" data-filter="men">Men</a></li>
+        <li><a href="#featured" data-filter="bridal">Bridal Edit</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="#">Size guide</a></li>
+        <li><a href="#">Shipping &amp; returns</a></li>
+        <li><a href="#">Fabric care</a></li>
+        <li><a href="#">Contact us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>NV</h3>
+      <ul>
+        <li><a href="#craft">Our craft</a></li>
+        <li><a href="#">Weaving partners</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> NV. All rights reserved.</p>
+    <p>Made with care for handloom.</p>
+  </div>
+</footer>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="drawer-scrim" id="cartScrim"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag" aria-hidden="true">
+  <div class="drawer-head">
+    <h2>Your Bag</h2>
+    <button class="icon-btn" id="cartClose" aria-label="Close bag">&times;</button>
+  </div>
+  <div class="drawer-body" id="cartBody">
+    <p class="empty-state">Your bag is empty. Time to go weave some magic in. ✦</p>
+  </div>
+  <div class="drawer-footer" id="cartFooter" hidden>
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">₹0</span>
+    </div>
+    <p class="cart-note">Shipping and taxes calculated at checkout.</p>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">Checkout</button>
+  </div>
+</aside>
+
+<!-- ============ QUICK VIEW MODAL ============ -->
+<div class="modal-scrim" id="quickViewScrim"></div>
+<div class="modal quick-view" id="quickViewModal" role="dialog" aria-modal="true" aria-labelledby="qvTitle" aria-hidden="true">
+  <button class="icon-btn modal-close" id="quickViewClose" aria-label="Close">&times;</button>
+  <div class="qv-media" id="qvMedia"></div>
+  <div class="qv-info">
+    <span class="qv-category" id="qvCategory"></span>
+    <h2 id="qvTitle"></h2>
+    <p class="qv-price" id="qvPrice"></p>
+    <p class="qv-desc" id="qvDesc"></p>
+    <div class="qv-meta" id="qvMeta"></div>
+    <div class="qv-sizes" id="qvSizes"></div>
+    <div class="qv-actions">
+      <div class="qty-stepper">
+        <button type="button" id="qvQtyMinus" aria-label="Decrease quantity">&minus;</button>
+        <span id="qvQty">1</span>
+        <button type="button" id="qvQtyPlus" aria-label="Increase quantity">+</button>
+      </div>
+      <button class="btn btn-primary" id="qvAddToBag">Add to Bag</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AUTH MODAL ============ -->
+<div class="modal-scrim" id="authScrim"></div>
+<div class="modal auth-modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle" aria-hidden="true">
+  <button class="icon-btn modal-close" id="authClose" aria-label="Close">&times;</button>
+  <div class="auth-tabs">
+    <button class="auth-tab is-active" data-tab="signin">Sign In</button>
+    <button class="auth-tab" data-tab="signup">Create Account</button>
+  </div>
+
+  <div id="authSignedOut">
+    <form id="signinForm" class="auth-form">
+      <h2 id="authTitle">Welcome back</h2>
+      <label>Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Password
+        <input type="password" name="password" required autocomplete="current-password">
+      </label>
+      <p class="auth-error" id="signinError"></p>
+      <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+    </form>
+
+    <form id="signupForm" class="auth-form" hidden>
+      <h2>Create your account</h2>
+      <label>Full name
+        <input type="text" name="fullName" required autocomplete="name">
+      </label>
+      <label>Email
+        <input type="email" name="email" required autocomplete="email">
+      </label>
+      <label>Password
+        <input type="password" name="password" required minlength="6" autocomplete="new-password">
+      </label>
+      <p class="auth-error" id="signupError"></p>
+      <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+    </form>
+  </div>
+
+  <div id="authSignedIn" hidden>
+    <h2>Hi, <span id="authUserName">there</span></h2>
+    <p class="auth-signed-in-note">You're signed in to NV.</p>
+    <button class="btn btn-outline btn-block" id="signOutBtn">Sign Out</button>
+  </div>
+</div>
+
+<!-- ============ LIST A PRODUCT MODAL (admin only) ============ -->
+<div class="modal-scrim" id="listScrim"></div>
+<div class="modal listing-modal" id="listingModal" role="dialog" aria-modal="true" aria-labelledby="listingTitle" aria-hidden="true">
+  <button class="icon-btn modal-close" id="listingClose" aria-label="Close">&times;</button>
+  <form id="listingForm" class="listing-form">
+    <h2 id="listingTitle">List a new piece</h2>
+    <p class="listing-sub">This adds a live product to the storefront, straight into Supabase.</p>
+
+    <label class="listing-upload" id="listingUploadLabel">
+      <input type="file" id="listingImage" accept="image/*">
+      <span class="upload-placeholder" id="uploadPlaceholder">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 16V4M12 4l-5 5M12 4l5 5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Upload a photo</span>
+      </span>
+      <img id="uploadPreview" hidden alt="">
+    </label>
+
+    <div class="listing-grid">
+      <label>Name
+        <input type="text" name="title" required placeholder="e.g. Banarasi Silk Saree — Peacock Blue">
+      </label>
+      <label>Category
+        <select name="category" required>
+          <option value="saree">Saree</option>
+          <option value="lehenga">Lehenga</option>
+          <option value="kurta-set">Kurta Set</option>
+          <option value="men">Men</option>
+          <option value="dupatta">Dupatta / Stole</option>
+          <option value="bridal">Bridal</option>
+        </select>
+      </label>
+    </div>
+
+    <label>Description
+      <textarea name="description" rows="3" placeholder="Fabric, weave, occasion, what makes this piece worth wearing…"></textarea>
+    </label>
+
+    <div class="listing-grid">
+      <label>Fabric
+        <input type="text" name="fabric" placeholder="e.g. Pure Kanjivaram Silk">
+      </label>
+      <label>Colour
+        <input type="text" name="color" placeholder="e.g. Rani Pink">
+      </label>
+    </div>
+
+    <div class="listing-grid">
+      <label>Price (₹)
+        <input type="number" name="price" min="0" step="1" required placeholder="4200">
+      </label>
+      <label>Compare-at price (₹) <span class="optional-tag">optional</span>
+        <input type="number" name="compareAtPrice" min="0" step="1" placeholder="5000">
+      </label>
+    </div>
+
+    <label>Available sizes</label>
+    <div class="size-check-group" id="sizeCheckGroup">
+      <label class="size-check"><input type="checkbox" value="XS"><span>XS</span></label>
+      <label class="size-check"><input type="checkbox" value="S"><span>S</span></label>
+      <label class="size-check"><input type="checkbox" value="M"><span>M</span></label>
+      <label class="size-check"><input type="checkbox" value="L"><span>L</span></label>
+      <label class="size-check"><input type="checkbox" value="XL"><span>XL</span></label>
+      <label class="size-check"><input type="checkbox" value="XXL"><span>XXL</span></label>
+      <label class="size-check"><input type="checkbox" value="Free Size" checked><span>Free Size</span></label>
+    </div>
+
+    <div class="listing-grid">
+      <label>Stock quantity
+        <input type="number" name="stock" min="0" step="1" value="10">
+      </label>
+      <label class="listing-featured-check">
+        <input type="checkbox" name="isFeatured">
+        <span>Show in "Handpicked this season"</span>
+      </label>
+    </div>
+
+    <p class="auth-error" id="listingError"></p>
+    <button type="submit" class="btn btn-primary btn-block" id="listingSubmitBtn">Publish Listing</button>
+  </form>
+</div>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
