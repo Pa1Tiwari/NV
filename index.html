@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NV — Traditional Indian Wear</title>
-<meta name="description" content="NV is a home for handwoven sarees, lehengas, kurta sets and menswear rooted in India's weaving traditions.">
+<title>NV — Traditional Menswear</title>
+<meta name="description" content="NV is a home for handwoven kurtas, sherwanis, bandhgalas and Nehru jackets rooted in India's weaving traditions.">
 
 <!-- Fonts: Cormorant for heritage/display, Cormorant SC for inscription-style labels, Jost for clean modern body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,17 +32,17 @@
 
     <a href="#top" class="logo" aria-label="NV home">
       <img src="assets/nv-logo-mark-dark.png" alt="NV" class="logo-mark-img">
-      <span class="logo-tag">Traditional Indian Wear</span>
+      <span class="logo-tag">Traditional Menswear</span>
     </a>
 
     <nav class="main-nav" aria-label="Primary">
       <ul>
-        <li><a href="#featured" data-filter="saree">Sarees</a></li>
-        <li><a href="#featured" data-filter="lehenga">Lehengas</a></li>
+        <li><a href="#featured" data-filter="kurta">Kurtas</a></li>
         <li><a href="#featured" data-filter="kurta-set">Kurta Sets</a></li>
-        <li><a href="#featured" data-filter="men">Men</a></li>
-        <li><a href="#featured" data-filter="dupatta">Dupattas &amp; Stoles</a></li>
-        <li><a href="#featured" data-filter="bridal" class="nav-accent">Bridal Edit</a></li>
+        <li><a href="#featured" data-filter="sherwani">Sherwanis</a></li>
+        <li><a href="#featured" data-filter="nehru-jacket">Nehru Jackets</a></li>
+        <li><a href="#featured" data-filter="dhoti">Dhoti &amp; Pyjama</a></li>
+        <li><a href="#featured" data-filter="wedding" class="nav-accent">Groom's Edit</a></li>
       </ul>
     </nav>
 
@@ -65,7 +65,7 @@
 
   <div class="search-panel" id="searchPanel">
     <div class="search-panel-inner">
-      <input type="search" id="searchInput" placeholder="Search for sarees, kurtas, fabrics, colours…" aria-label="Search products">
+      <input type="search" id="searchInput" placeholder="Search for kurtas, sherwanis, fabrics, colours…" aria-label="Search products">
       <button class="icon-btn" id="searchClose" aria-label="Close search">&times;</button>
     </div>
   </div>
@@ -74,12 +74,12 @@
 <!-- ============ MOBILE NAV ============ -->
 <div class="mobile-nav" id="mobileNav">
   <ul>
-    <li><a href="#featured" data-filter="saree">Sarees</a></li>
-    <li><a href="#featured" data-filter="lehenga">Lehengas</a></li>
+    <li><a href="#featured" data-filter="kurta">Kurtas</a></li>
     <li><a href="#featured" data-filter="kurta-set">Kurta Sets</a></li>
-    <li><a href="#featured" data-filter="men">Men</a></li>
-    <li><a href="#featured" data-filter="dupatta">Dupattas &amp; Stoles</a></li>
-    <li><a href="#featured" data-filter="bridal">Bridal Edit</a></li>
+    <li><a href="#featured" data-filter="sherwani">Sherwanis</a></li>
+    <li><a href="#featured" data-filter="nehru-jacket">Nehru Jackets</a></li>
+    <li><a href="#featured" data-filter="dhoti">Dhoti &amp; Pyjama</a></li>
+    <li><a href="#featured" data-filter="wedding">Groom's Edit</a></li>
     <li><a href="#featured" data-filter="all">Shop All</a></li>
   </ul>
 </div>
@@ -96,7 +96,7 @@
         <span class="line">Woven by hand.</span>
         <span class="line">Worn with intent.</span>
       </h1>
-      <p class="hero-sub">NV brings together sarees, lehengas and kurta sets sourced directly from weaving clusters across India — chosen for craft, not trend cycles.</p>
+      <p class="hero-sub">NV brings together kurtas, sherwanis, bandhgalas and Nehru jackets sourced directly from weaving clusters across India — chosen for craft, not trend cycles.</p>
       <div class="hero-cta">
         <a href="#featured" class="btn btn-primary">Shop the Edit</a>
         <a href="#craft" class="btn btn-ghost">Our Craft</a>
@@ -140,12 +140,12 @@
     </div>
     <div class="rail" id="categoryRail">
       <!-- category cards injected by script.js; static fallback below -->
-      <a class="cat-card cat-saree" href="#featured" data-filter="saree"><span>Sarees</span></a>
-      <a class="cat-card cat-lehenga" href="#featured" data-filter="lehenga"><span>Lehengas</span></a>
-      <a class="cat-card cat-kurta" href="#featured" data-filter="kurta-set"><span>Kurta Sets</span></a>
-      <a class="cat-card cat-men" href="#featured" data-filter="men"><span>Men</span></a>
-      <a class="cat-card cat-dupatta" href="#featured" data-filter="dupatta"><span>Dupattas &amp; Stoles</span></a>
-      <a class="cat-card cat-bridal" href="#featured" data-filter="bridal"><span>Bridal Edit</span></a>
+      <a class="cat-card cat-kurta" href="#featured" data-filter="kurta"><span>Kurtas</span></a>
+      <a class="cat-card cat-kurta-set" href="#featured" data-filter="kurta-set"><span>Kurta Sets</span></a>
+      <a class="cat-card cat-sherwani" href="#featured" data-filter="sherwani"><span>Sherwanis</span></a>
+      <a class="cat-card cat-nehru" href="#featured" data-filter="nehru-jacket"><span>Nehru Jackets</span></a>
+      <a class="cat-card cat-dhoti" href="#featured" data-filter="dhoti"><span>Dhoti &amp; Pyjama</span></a>
+      <a class="cat-card cat-wedding" href="#featured" data-filter="wedding"><span>Groom's Edit</span></a>
     </div>
   </section>
 
@@ -164,12 +164,12 @@
 
     <div class="filter-chips" id="filterChips">
       <button class="chip is-active" data-filter="all">All</button>
-      <button class="chip" data-filter="saree">Sarees</button>
-      <button class="chip" data-filter="lehenga">Lehengas</button>
+      <button class="chip" data-filter="kurta">Kurtas</button>
       <button class="chip" data-filter="kurta-set">Kurta Sets</button>
-      <button class="chip" data-filter="men">Men</button>
-      <button class="chip" data-filter="dupatta">Dupattas</button>
-      <button class="chip" data-filter="bridal">Bridal</button>
+      <button class="chip" data-filter="sherwani">Sherwanis</button>
+      <button class="chip" data-filter="nehru-jacket">Nehru Jackets</button>
+      <button class="chip" data-filter="dhoti">Dhoti &amp; Pyjama</button>
+      <button class="chip" data-filter="wedding">Groom's Edit</button>
     </div>
 
     <div class="product-grid" id="productGrid">
@@ -190,7 +190,7 @@
     <div class="craft-content">
       <span class="eyebrow eyebrow-dark">Why NV</span>
       <h2>Every piece has a village, a loom and a name behind it</h2>
-      <p>We work with small ateliers and weaving clusters — Banarasi, Kanjivaram, Chanderi, Bandhani, Ajrakh and more — and buy in small batches instead of mass runs. No two dye lots are identical, and that's the point.</p>
+      <p>We work with small ateliers and weaving clusters — Banarasi, Chanderi, Bandhani, Ajrakh and more — and buy in small batches instead of mass runs. No two dye lots are identical, and that's the point.</p>
       <ul class="craft-points">
         <li><strong>Direct from the source.</strong> We pay weavers before we list the piece, not after it sells.</li>
         <li><strong>Real fabric notes.</strong> Every listing states the weave, dye method and care instructions honestly.</li>
@@ -222,16 +222,16 @@
   <div class="footer-grid">
     <div class="footer-col footer-brand">
       <img src="assets/nv-logo-mark.png" alt="NV" class="logo-mark-img logo-mark-img-light">
-      <p>A small, considered home for traditional Indian clothing — sarees, lehengas, kurta sets and menswear, sourced with the weaver in view.</p>
+      <p>A small, considered home for traditional Indian menswear — kurtas, sherwanis, bandhgalas and Nehru jackets, sourced with the weaver in view.</p>
     </div>
     <div class="footer-col">
       <h3>Shop</h3>
       <ul>
-        <li><a href="#featured" data-filter="saree">Sarees</a></li>
-        <li><a href="#featured" data-filter="lehenga">Lehengas</a></li>
+        <li><a href="#featured" data-filter="kurta">Kurtas</a></li>
         <li><a href="#featured" data-filter="kurta-set">Kurta Sets</a></li>
-        <li><a href="#featured" data-filter="men">Men</a></li>
-        <li><a href="#featured" data-filter="bridal">Bridal Edit</a></li>
+        <li><a href="#featured" data-filter="sherwani">Sherwanis</a></li>
+        <li><a href="#featured" data-filter="nehru-jacket">Nehru Jackets</a></li>
+        <li><a href="#featured" data-filter="wedding">Groom's Edit</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -341,12 +341,12 @@
 
   <div id="authSignedIn" hidden>
     <h2>Hi, <span id="authUserName">there</span></h2>
-    <p class="auth-signed-in-note">You're signed in to NV.</p>
+    <p class="auth-signed-in-note">You're signed in to NV. Use the <strong>+</strong> icon in the header any time to list a new piece.</p>
     <button class="btn btn-outline btn-block" id="signOutBtn">Sign Out</button>
   </div>
 </div>
 
-<!-- ============ LIST A PRODUCT MODAL (admin only) ============ -->
+<!-- ============ LIST A PRODUCT MODAL ============ -->
 <div class="modal-scrim" id="listScrim"></div>
 <div class="modal listing-modal" id="listingModal" role="dialog" aria-modal="true" aria-labelledby="listingTitle" aria-hidden="true">
   <button class="icon-btn modal-close" id="listingClose" aria-label="Close">&times;</button>
@@ -365,16 +365,16 @@
 
     <div class="listing-grid">
       <label>Name
-        <input type="text" name="title" required placeholder="e.g. Banarasi Silk Saree — Peacock Blue">
+        <input type="text" name="title" required placeholder="e.g. Bandhgala Jacket Set — Charcoal">
       </label>
       <label>Category
         <select name="category" required>
-          <option value="saree">Saree</option>
-          <option value="lehenga">Lehenga</option>
+          <option value="kurta">Kurta</option>
           <option value="kurta-set">Kurta Set</option>
-          <option value="men">Men</option>
-          <option value="dupatta">Dupatta / Stole</option>
-          <option value="bridal">Bridal</option>
+          <option value="sherwani">Sherwani</option>
+          <option value="nehru-jacket">Nehru Jacket</option>
+          <option value="dhoti">Dhoti / Pyjama</option>
+          <option value="wedding">Groom's Edit</option>
         </select>
       </label>
     </div>
@@ -385,10 +385,10 @@
 
     <div class="listing-grid">
       <label>Fabric
-        <input type="text" name="fabric" placeholder="e.g. Pure Kanjivaram Silk">
+        <input type="text" name="fabric" placeholder="e.g. Handloom Cotton">
       </label>
       <label>Colour
-        <input type="text" name="color" placeholder="e.g. Rani Pink">
+        <input type="text" name="color" placeholder="e.g. Rust">
       </label>
     </div>
 
@@ -403,12 +403,12 @@
 
     <label>Available sizes</label>
     <div class="size-check-group" id="sizeCheckGroup">
-      <label class="size-check"><input type="checkbox" value="XS"><span>XS</span></label>
-      <label class="size-check"><input type="checkbox" value="S"><span>S</span></label>
-      <label class="size-check"><input type="checkbox" value="M"><span>M</span></label>
-      <label class="size-check"><input type="checkbox" value="L"><span>L</span></label>
-      <label class="size-check"><input type="checkbox" value="XL"><span>XL</span></label>
-      <label class="size-check"><input type="checkbox" value="XXL"><span>XXL</span></label>
+      <label class="size-check"><input type="checkbox" value="38"><span>38</span></label>
+      <label class="size-check"><input type="checkbox" value="40"><span>40</span></label>
+      <label class="size-check"><input type="checkbox" value="42"><span>42</span></label>
+      <label class="size-check"><input type="checkbox" value="44"><span>44</span></label>
+      <label class="size-check"><input type="checkbox" value="46"><span>46</span></label>
+      <label class="size-check"><input type="checkbox" value="48"><span>48</span></label>
       <label class="size-check"><input type="checkbox" value="Free Size" checked><span>Free Size</span></label>
     </div>
 
