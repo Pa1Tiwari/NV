@@ -1,5 +1,5 @@
 /* =========================================================
-   NV — Traditional Indian Wear
+   NV — Traditional Menswear
    Frontend logic + Supabase backend integration
 
    Requires the UMD Supabase client to be loaded before this file
@@ -25,25 +25,30 @@ try {
 /* ---------------------------------------------------------
    Fallback demo data — used automatically if Supabase isn't
    configured yet, so the site is browsable out of the box.
+   Menswear only.
    --------------------------------------------------------- */
 const DEMO_PRODUCTS = [
-  { id: "d1", title: "Kanjivaram Silk Saree — Rani Pink", slug: "kanjivaram-rani-pink", category: "saree", fabric: "Pure Kanjivaram Silk", color: "Rani Pink", price: 18500, compare_at_price: 22000, description: "Handwoven in Kanchipuram with a temple-border zari pallu. Comes with an unstitched blouse piece.", sizes: ["Free Size"], image_url: null, is_featured: true },
-  { id: "d2", title: "Banarasi Georgette Saree — Emerald", slug: "banarasi-emerald", category: "saree", fabric: "Banarasi Georgette", color: "Emerald Green", price: 9800, compare_at_price: null, description: "Lightweight Banarasi weave with a self-jaal pattern, finished with a contrast gold border.", sizes: ["Free Size"], image_url: null, is_featured: true },
-  { id: "d3", title: "Bridal Lehenga — Maroon Zardozi", slug: "bridal-lehenga-maroon", category: "bridal", fabric: "Velvet with Zardozi embroidery", color: "Maroon", price: 42000, compare_at_price: 52000, description: "Heavy hand-embroidered bridal lehenga with dupatta and matching blouse. Made to order.", sizes: ["XS","S","M","L","XL"], image_url: null, is_featured: true },
-  { id: "d4", title: "Chanderi Lehenga Set — Turmeric", slug: "chanderi-turmeric", category: "lehenga", fabric: "Chanderi Silk Cotton", color: "Turmeric Yellow", price: 12600, compare_at_price: null, description: "Airy Chanderi lehenga with hand block printing, paired with an ikat dupatta.", sizes: ["S","M","L","XL"], image_url: null, is_featured: true },
-  { id: "d5", title: "Chikankari Kurta Set — Ivory", slug: "chikankari-ivory", category: "kurta-set", fabric: "Cotton Chikankari", color: "Ivory", price: 4200, compare_at_price: 5000, description: "Lucknowi chikankari hand-embroidery on breathable cotton, with matching palazzo and dupatta.", sizes: ["XS","S","M","L","XL","XXL"], image_url: null, is_featured: true },
-  { id: "d6", title: "Ajrakh Print Kurta Set — Indigo", slug: "ajrakh-indigo", category: "kurta-set", fabric: "Ajrakh Block Print Cotton", color: "Indigo", price: 3800, compare_at_price: null, description: "Natural indigo-dyed Ajrakh block print from Kutch, tailored as an A-line kurta with pants.", sizes: ["S","M","L","XL"], image_url: null, is_featured: false },
-  { id: "d7", title: "Men's Bandhgala Set — Charcoal", slug: "bandhgala-charcoal", category: "men", fabric: "Jacquard Silk Blend", color: "Charcoal", price: 8900, compare_at_price: null, description: "Structured bandhgala jacket with matching trousers — tailored fit, festive occasions.", sizes: ["38","40","42","44","46"], image_url: null, is_featured: true },
-  { id: "d8", title: "Men's Cotton Kurta — Rust", slug: "mens-kurta-rust", category: "men", fabric: "Handloom Cotton", color: "Rust", price: 2400, compare_at_price: 2900, description: "Straight-fit handloom cotton kurta, breathable and lightly starched for structure.", sizes: ["S","M","L","XL","XXL"], image_url: null, is_featured: false },
-  { id: "d9", title: "Bandhani Dupatta — Sunset Orange", slug: "bandhani-dupatta-sunset", category: "dupatta", fabric: "Pure Georgette Bandhani", color: "Sunset Orange", price: 1900, compare_at_price: null, description: "Traditional Kutch bandhani tie-dye dupatta with gota trim.", sizes: ["Free Size"], image_url: null, is_featured: false },
-  { id: "d10", title: "Ikat Stole — Slate Blue", slug: "ikat-stole-slate", category: "dupatta", fabric: "Pochampally Ikat Cotton", color: "Slate Blue", price: 1450, compare_at_price: null, description: "Hand-dyed double ikat stole from Pochampally, soft cotton handle.", sizes: ["Free Size"], image_url: null, is_featured: false },
-  { id: "d11", title: "Organza Saree — Blush", slug: "organza-blush", category: "saree", fabric: "Pure Silk Organza", color: "Blush Pink", price: 7600, compare_at_price: null, description: "Featherlight organza with delicate thread embroidery along the border.", sizes: ["Free Size"], image_url: null, is_featured: false },
-  { id: "d12", title: "Sharara Set — Bottle Green", slug: "sharara-bottle-green", category: "lehenga", fabric: "Silk Blend", color: "Bottle Green", price: 9200, compare_at_price: 10800, description: "Flared sharara with a short embroidered kurti and net dupatta.", sizes: ["S","M","L","XL"], image_url: null, is_featured: false },
+  { id: "d1", title: "Bandhgala Jacket Set — Charcoal", slug: "bandhgala-charcoal", category: "sherwani", fabric: "Jacquard Silk Blend", color: "Charcoal", price: 8900, compare_at_price: null, description: "Structured bandhgala jacket with matching trousers — tailored fit, festive occasions.", sizes: ["38","40","42","44","46"], image_url: null, is_featured: true },
+  { id: "d2", title: "Handloom Cotton Kurta — Rust", slug: "mens-kurta-rust", category: "kurta", fabric: "Handloom Cotton", color: "Rust", price: 2400, compare_at_price: 2900, description: "Straight-fit handloom cotton kurta, breathable and lightly starched for structure.", sizes: ["S","M","L","XL","XXL"], image_url: null, is_featured: false },
+  { id: "d3", title: "Silk Sherwani — Ivory Gold", slug: "sherwani-ivory-gold", category: "sherwani", fabric: "Raw Silk with Zari Border", color: "Ivory", price: 24500, compare_at_price: 29000, description: "Hand-finished wedding sherwani with a zari border and matching churidar. Made to order.", sizes: ["38","40","42","44","46","48"], image_url: null, is_featured: true },
+  { id: "d4", title: "Chikankari Kurta Set — Ivory", slug: "chikankari-kurta-mens", category: "kurta-set", fabric: "Cotton Chikankari", color: "Ivory", price: 4200, compare_at_price: 5000, description: "Lucknowi chikankari hand-embroidery on breathable cotton, paired with a matching pyjama.", sizes: ["S","M","L","XL","XXL"], image_url: null, is_featured: true },
+  { id: "d5", title: "Ajrakh Print Kurta Set — Indigo", slug: "ajrakh-indigo-mens", category: "kurta-set", fabric: "Ajrakh Block Print Cotton", color: "Indigo", price: 3800, compare_at_price: null, description: "Natural indigo-dyed Ajrakh block print from Kutch, tailored as a straight kurta with pyjama.", sizes: ["S","M","L","XL"], image_url: null, is_featured: false },
+  { id: "d6", title: "Nehru Jacket — Bottle Green Velvet", slug: "nehru-jacket-green", category: "nehru-jacket", fabric: "Velvet", color: "Bottle Green", price: 5200, compare_at_price: null, description: "Fitted velvet Nehru jacket with mandarin collar, layers over any kurta.", sizes: ["S","M","L","XL"], image_url: null, is_featured: true },
+  { id: "d7", title: "Nehru Jacket — Turmeric Silk", slug: "nehru-jacket-turmeric", category: "nehru-jacket", fabric: "Silk Blend", color: "Turmeric Yellow", price: 4600, compare_at_price: 5400, description: "Lightweight silk-blend Nehru jacket with self-jaal weave, festive-ready.", sizes: ["S","M","L","XL","XXL"], image_url: null, is_featured: false },
+  { id: "d8", title: "Dhoti & Angavastram Set — Cream", slug: "dhoti-set-cream", category: "dhoti", fabric: "Handloom Cotton", color: "Cream", price: 2100, compare_at_price: null, description: "Traditional dhoti with a gold-bordered angavastram, ready to drape.", sizes: ["Free Size"], image_url: null, is_featured: false },
+  { id: "d9", title: "Silk Pyjama Set — Slate Blue", slug: "silk-pyjama-slate", category: "dhoti", fabric: "Pure Silk", color: "Slate Blue", price: 3200, compare_at_price: null, description: "Relaxed silk pyjama with a matching short kurta, ideal for evening functions.", sizes: ["S","M","L","XL"], image_url: null, is_featured: false },
+  { id: "d10", title: "Banarasi Silk Kurta — Maroon", slug: "banarasi-kurta-maroon", category: "kurta", fabric: "Banarasi Silk", color: "Maroon", price: 6800, compare_at_price: null, description: "Banarasi silk kurta with a self-jaal pattern and a gold-trimmed placket.", sizes: ["S","M","L","XL","XXL"], image_url: null, is_featured: false },
+  { id: "d11", title: "Groom's Sherwani — Maroon Zardozi", slug: "grooms-sherwani-maroon", category: "wedding", fabric: "Velvet with Zardozi embroidery", color: "Maroon", price: 42000, compare_at_price: 52000, description: "Heavy hand-embroidered groom's sherwani with matching stole and churidar. Made to order.", sizes: ["38","40","42","44","46","48"], image_url: null, is_featured: true },
+  { id: "d12", title: "Groom's Bandhgala — Ivory Gold", slug: "grooms-bandhgala-ivory", category: "wedding", fabric: "Silk Blend with Handwork", color: "Ivory Gold", price: 31500, compare_at_price: null, description: "Regal bandhgala with hand-finished buttons and subtle gold thread work, tailored for the mandap.", sizes: ["38","40","42","44","46"], image_url: null, is_featured: false },
 ];
 
 const CATEGORY_LABELS = {
-  "saree": "Saree", "lehenga": "Lehenga", "kurta-set": "Kurta Set",
-  "men": "Menswear", "dupatta": "Dupatta / Stole", "bridal": "Bridal"
+  "kurta": "Kurta",
+  "kurta-set": "Kurta Set",
+  "sherwani": "Sherwani",
+  "nehru-jacket": "Nehru Jacket",
+  "dhoti": "Dhoti / Pyjama",
+  "wedding": "Groom's Edit"
 };
 
 /* ---------------------------------------------------------
@@ -58,7 +63,6 @@ const state = {
   pageSize: 8,
   cart: loadCart(),
   currentUser: null,
-  isAdmin: false,
   quickViewProduct: null,
   quickViewQty: 1,
   quickViewSize: null,
@@ -317,7 +321,6 @@ async function syncCartOnSignIn() {
   }
 
   (data || []).forEach((row) => {
-    const id = row.product_id || row.title; // fall back to title-matching for demo items
     const existing = state.cart.find((i) => (i.id === row.product_id || i.title === row.title) && i.size === row.size);
     if (existing) {
       existing.qty = Math.max(existing.qty, row.quantity);
@@ -578,7 +581,12 @@ function closeQuickView() {
 }
 
 /* ---------------------------------------------------------
-   AUTH — Supabase email/password
+   AUTH — Supabase email/password.
+
+   Any signed-in account can list products (see LISTING below) —
+   there's no separate "admin" flag to configure. If you want to
+   restrict listing to only yourself, re-introduce a profiles.is_admin
+   check in checkListingAccess() below.
    --------------------------------------------------------- */
 function bindAuthEvents() {
   document.getElementById("authClose").addEventListener("click", closeAuthModal);
@@ -639,7 +647,6 @@ function bindAuthEvents() {
   document.getElementById("signOutBtn").addEventListener("click", async () => {
     if (supabase) await supabase.auth.signOut();
     state.currentUser = null;
-    state.isAdmin = false;
     document.getElementById("listProductToggle").hidden = true;
     renderAuthState();
     showToast("Signed out");
@@ -652,25 +659,12 @@ async function loadCurrentUser() {
   state.currentUser = data && data.user ? data.user : null;
   renderAuthState();
 
+  // Listing is available to any signed-in account.
+  document.getElementById("listProductToggle").hidden = !state.currentUser;
+
   if (state.currentUser) {
-    await checkAdminStatus();
     await syncCartOnSignIn();
-  } else {
-    state.isAdmin = false;
-    document.getElementById("listProductToggle").hidden = true;
   }
-}
-
-async function checkAdminStatus() {
-  if (!supabase || !state.currentUser) return;
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", state.currentUser.id)
-    .maybeSingle();
-
-  state.isAdmin = !error && !!(data && data.is_admin);
-  document.getElementById("listProductToggle").hidden = !state.isAdmin;
 }
 
 function renderAuthState() {
@@ -699,7 +693,7 @@ function closeAuthModal() {
 }
 
 /* ---------------------------------------------------------
-   LISTING — admin-only "add a product" form.
+   LISTING — "add a product" form, open to any signed-in shopper.
    Uploads the photo to Supabase Storage (bucket: product-images),
    then inserts a row into the products table.
    --------------------------------------------------------- */
@@ -723,6 +717,11 @@ function bindListingEvents() {
 }
 
 function openListingModal() {
+  if (!state.currentUser) {
+    showToast("Sign in first to list a product");
+    openAuthModal();
+    return;
+  }
   document.getElementById("listingModal").classList.add("open");
   document.getElementById("listingModal").setAttribute("aria-hidden", "false");
   document.getElementById("listScrim").classList.add("open");
@@ -740,7 +739,7 @@ async function handleListingSubmit(e) {
   errorEl.textContent = "";
 
   if (!supabase) { errorEl.textContent = "Connect Supabase to publish listings."; return; }
-  if (!state.currentUser || !state.isAdmin) { errorEl.textContent = "Only admin accounts can list products."; return; }
+  if (!state.currentUser) { errorEl.textContent = "Please sign in to list a product."; return; }
 
   const form = new FormData(e.target);
   const sizes = Array.from(document.querySelectorAll('#sizeCheckGroup input:checked')).map((c) => c.value);
