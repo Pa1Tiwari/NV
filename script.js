@@ -73,18 +73,30 @@ const state = {
    Init
    --------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  bindHeaderEvents();
-  bindDrawerEvents();
-  bindQuickViewEvents();
-  bindAuthEvents();
-  bindListingEvents();
-  bindFilterEvents();
-  bindNewsletterEvents();
-  setupScrollReveal();
+  // Each setup step runs in its own try/catch so that a problem in one
+  // (e.g. a missing element, a blocked API) can't silently prevent the
+  // others from wiring up their buttons.
+  const steps = [
+    ["bindHeaderEvents", bindHeaderEvents],
+    ["bindDrawerEvents", bindDrawerEvents],
+    ["bindQuickViewEvents", bindQuickViewEvents],
+    ["bindAuthEvents", bindAuthEvents],
+    ["bindListingEvents", bindListingEvents],
+    ["bindFilterEvents", bindFilterEvents],
+    ["bindNewsletterEvents", bindNewsletterEvents],
+    ["setupScrollReveal", setupScrollReveal],
+    ["renderCart", renderCart],
+    ["loadProducts", loadProducts],
+    ["loadCurrentUser", loadCurrentUser],
+  ];
 
-  renderCart();
-  loadProducts();
-  loadCurrentUser();
+  steps.forEach(([name, fn]) => {
+    try {
+      fn();
+    } catch (err) {
+      console.error(`NV site: "${name}" failed to initialize —`, err);
+    }
+  });
 });
 
 /* ---------------------------------------------------------
@@ -268,11 +280,18 @@ function loadCart() {
   try {
     return JSON.parse(localStorage.getItem("nv_cart")) || [];
   } catch {
+    // localStorage can be unavailable (sandboxed preview, private browsing,
+    // blocked storage). Fall back to an empty in-memory cart instead of
+    // letting this throw and break the rest of the page's scripts.
     return [];
   }
 }
 function saveCart() {
-  localStorage.setItem("nv_cart", JSON.stringify(state.cart));
+  try {
+    localStorage.setItem("nv_cart", JSON.stringify(state.cart));
+  } catch {
+    // Same as above — cart just won't persist across reloads in that case.
+  }
 }
 
 /**
