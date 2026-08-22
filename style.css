@@ -1,5 +1,5 @@
 /* =========================================================
-   NV — Traditional Indian Wear
+   NV — Traditional Menswear
    Design tokens
    ink      #1A0F0F  near-black warm maroon — dark base
    ivory    #FBF6ED  warm ivory — light base
@@ -318,12 +318,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; margin: 0; colo
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 40%, rgba(26,15,15,0.75));
 }
-.cat-saree   { background: linear-gradient(155deg, #A11F2B, #5B1119); }
-.cat-lehenga { background: linear-gradient(155deg, #C9A227, #7E611A); }
-.cat-kurta   { background: linear-gradient(155deg, #2F4A3D, #17251E); }
-.cat-men     { background: linear-gradient(155deg, #6B4226, #3A2314); }
-.cat-dupatta { background: linear-gradient(155deg, #7E1621, #A11F2B); }
-.cat-bridal  { background: linear-gradient(155deg, #4a1f2b, #C9A227); }
+.cat-kurta     { background: linear-gradient(155deg, #6B4226, #3A2314); }
+.cat-kurta-set { background: linear-gradient(155deg, #A11F2B, #5B1119); }
+.cat-sherwani  { background: linear-gradient(155deg, #2F4A3D, #17251E); }
+.cat-nehru     { background: linear-gradient(155deg, #C9A227, #7E611A); }
+.cat-dhoti     { background: linear-gradient(155deg, #7E1621, #A11F2B); }
+.cat-wedding   { background: linear-gradient(155deg, #4a1f2b, #C9A227); }
 
 /* =========================================================
    FEATURED / PRODUCT GRID
@@ -529,7 +529,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; margin: 0; colo
 .list-product-btn { color: var(--maroon); }
 
 /* =========================================================
-   LISTING MODAL (admin: add a product)
+   LISTING MODAL (add a product)
    ========================================================= */
 .listing-modal { width: 92vw; max-width: 520px; padding: 2.2rem; }
 .listing-form { display: flex; flex-direction: column; gap: 1.1rem; }
