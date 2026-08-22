@@ -10,8 +10,8 @@
    Then run supabase-schema.sql in the Supabase SQL editor.
    ========================================================= */
 
-const SUPABASE_URL = "https://blgqrqmajndxgwvhrcpp.supabase.co"; // e.g. https://xxxxx.supabase.co
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsZ3FycW1ham5keGd3dmhyY3BwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTk0NjAsImV4cCI6MjEwMjY5NTQ2MH0.X1pRCHHiHRVFKZz2lk-Q16yYH5A_z8skvnJn47G2R5g";
+const SUPABASE_URL="https://blgqrqmajndxgwvhrcpp.supabase.co"; // e.g. https://xxxxx.supabase.co
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsZ3FycW1ham5keGd3dmhyY3BwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMTk0NjAsImV4cCI6MjEwMjY5NTQ2MH0.X1pRCHHiHRVFKZz2lk-Q16yYH5A_z8skvnJn47G2R5g";
 
 let supabase = null;
 try {
