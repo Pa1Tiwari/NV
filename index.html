@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NV — Indian Menswear</title>
+  <meta name="description" content="NV — refined traditional Indian menswear.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#home">N<span>V</span></a>
+  <nav>
+    <a href="#shop">Shop</a><a href="#about">About</a>
+    <button id="accountBtn" class="link-btn">Account</button>
+    <button id="cartBtn" class="cart-btn">Cart <b id="cartCount">0</b></button>
+  </nav>
+</header>
+
+<div id="toast"></div>
+
+<main>
+<section id="home" class="hero">
+  <div>
+    <p class="eyebrow">TRADITION / REFINED</p>
+    <h1>Indian menswear,<br><em>reimagined.</em></h1>
+    <p class="hero-text">Timeless kurtas, Nehru jackets and festive essentials designed for modern celebrations.</p>
+    <a class="button" href="#shop">Explore collection</a>
+  </div>
+  <div class="hero-art"><div class="motif">नव</div></div>
+</section>
+
+<section id="shop" class="shop">
+  <div class="section-head">
+    <div><p class="eyebrow">THE COLLECTION</p><h2>Shop NV</h2></div>
+    <div id="categories" class="categories"><button class="active" data-category="">All</button></div>
+  </div>
+  <div id="products" class="product-grid"><div class="loading">Loading collection...</div></div>
+</section>
+
+<section id="about" class="about">
+  <p class="eyebrow">ABOUT NV</p>
+  <h2>Heritage in every detail.</h2>
+  <p>NV brings together the character of Indian traditional clothing and a clean contemporary aesthetic. Every piece is selected for celebrations, festivals and occasions worth remembering.</p>
+</section>
+</main>
+
+<div id="drawer" class="drawer">
+  <div class="drawer-panel">
+    <button class="close" data-close>×</button>
+    <div id="drawerContent"></div>
+  </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-card">
+    <button class="close" data-close>×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
