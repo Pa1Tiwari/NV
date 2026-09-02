@@ -148,27 +148,129 @@ async function account(){
 async function showAdmin(){
   const {data:{user}}=await sb.auth.getUser();
   if(!user || user.email.toLowerCase()!==String(cfg.ADMIN_EMAIL).toLowerCase()){toast("Admin access denied.",true);return;}
-  openDrawer(`<p class="eyebrow">NV ADMIN</p><h2>Add product</h2>
+  openDrawer(`<p class="eyebrow">NV ADMIN</p><h2 id="adminFormTitle">Add product</h2>
     <form id="productForm" class="admin-form">
+      <input type="hidden" name="id">
       <input name="name" placeholder="Product name" required><input name="category" placeholder="Category" required>
       <textarea name="description" placeholder="Description"></textarea>
       <div class="two"><input name="price" type="number" min="0" step=".01" placeholder="Price" required><input name="stock" type="number" min="0" placeholder="Stock" required></div>
       <input name="sizes" value="S,M,L,XL,XXL" placeholder="Sizes">
       <input name="image" type="file" accept="image/png,image/jpeg,image/webp" required>
-      <button class="button full">Publish product</button>
+      <p class="muted" id="currentImageNote"></p>
+      <div class="two">
+        <button class="button full" id="productSubmitBtn">Publish product</button>
+        <button type="button" class="button secondary full" id="cancelEditBtn" style="display:none">Cancel edit</button>
+      </div>
     </form>
-    <p class="muted">Products published here become visible in the public collection.</p>`);
-  $("#productForm").onsubmit=publishProduct;
+    <p class="muted" id="adminFormHelp">Products published here become visible in the public collection.</p>
+    <hr class="admin-divider">
+    <h3>Manage products</h3>
+    <div id="adminList" class="admin-list"><p class="muted">Loading products…</p></div>`);
+  $("#productForm").onsubmit=submitProductForm;
+  $("#cancelEditBtn").onclick=resetProductForm;
+  await loadAdminProducts();
 }
 
-async function publishProduct(e){
-  e.preventDefault(); const f=new FormData(e.target), file=f.get("image");
+async function loadAdminProducts(){
+  const el=$("#adminList"); if(!el)return;
+  const {data,error}=await sb.from("products").select("*").order("created_at",{ascending:false});
+  if(error){el.innerHTML="<p class='muted'>Could not load products.</p>";console.error(error);return;}
+  renderAdminList(data||[]);
+}
+
+function renderAdminList(list){
+  const el=$("#adminList"); if(!el)return;
+  if(!list.length){el.innerHTML="<p class='muted'>No products yet.</p>";return;}
+  el.innerHTML=list.map(p=>`
+    <div class="admin-item">
+      <div class="mini">${p.image_url?`<img src="${imageUrl(p.image_url)}">`:escapeHtml(p.category||"NV")}</div>
+      <div class="admin-item-info">
+        <h4>${escapeHtml(p.name)}${p.active?"":` <span class="tag-off">Delisted</span>`}</h4>
+        <p class="muted">${escapeHtml(p.category||"")} · ${money(p.price)} · ${p.stock} in stock</p>
+      </div>
+      <div class="admin-item-actions">
+        <button class="text-button" data-edit="${p.id}">Edit</button>
+        <button class="text-button" data-toggle="${p.id}">${p.active?"Delist":"Relist"}</button>
+      </div>
+    </div>`).join("");
+  el.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editProduct(Number(b.dataset.edit)));
+  el.querySelectorAll("[data-toggle]").forEach(b=>b.onclick=()=>toggleActive(Number(b.dataset.toggle)));
+}
+
+async function toggleActive(id){
+  const {data,error}=await sb.from("products").select("active").eq("id",id).single();
+  if(error){toast(error.message,true);return;}
+  const {error:updErr}=await sb.from("products").update({active:!data.active}).eq("id",id);
+  if(updErr){toast(updErr.message,true);return;}
+  toast(!data.active?"Product relisted.":"Product delisted.");
+  await loadAdminProducts();
+  await loadProducts();
+}
+
+async function editProduct(id){
+  const {data:p,error}=await sb.from("products").select("*").eq("id",id).single();
+  if(error||!p){toast("Could not load product.",true);return;}
+  const f=$("#productForm");
+  f.id.value=p.id;
+  f.name.value=p.name||"";
+  f.category.value=p.category||"";
+  f.description.value=p.description||"";
+  f.price.value=p.price;
+  f.stock.value=p.stock;
+  f.sizes.value=p.sizes||"S,M,L,XL,XXL";
+  f.image.required=false;
+  $("#adminFormTitle").textContent="Edit product";
+  $("#productSubmitBtn").textContent="Save changes";
+  $("#currentImageNote").textContent=p.image_url?"Leave the image blank to keep the current photo.":"";
+  $("#cancelEditBtn").style.display="inline-block";
+  $("#drawerContent").scrollTop=0;
+}
+
+function resetProductForm(){
+  const f=$("#productForm"); if(!f)return;
+  f.reset(); f.id.value="";
+  f.image.required=true;
+  $("#adminFormTitle").textContent="Add product";
+  $("#productSubmitBtn").textContent="Publish product";
+  $("#currentImageNote").textContent="";
+  $("#cancelEditBtn").style.display="none";
+}
+
+async function submitProductForm(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const id=f.get("id");
+  if(id) await updateProduct(Number(id),f);
+  else await publishProduct(f);
+}
+
+async function publishProduct(f){
+  const file=f.get("image");
+  if(!file || !file.size){toast("Please choose an image.",true);return;}
   const filename=`${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"")}`;
   const up=await sb.storage.from("product-images").upload(filename,file,{upsert:false});
   if(up.error){toast(up.error.message,true);return;}
   const {error}=await sb.from("products").insert({name:f.get("name"),category:f.get("category"),description:f.get("description"),price:Number(f.get("price")),stock:Number(f.get("stock")),sizes:f.get("sizes"),image_url:filename,active:true});
   if(error){await sb.storage.from("product-images").remove([filename]);toast(error.message,true);return;}
-  toast("Product published."); e.target.reset(); await loadProducts();
+  toast("Product published."); resetProductForm(); await loadAdminProducts(); await loadProducts();
+}
+
+async function updateProduct(id,f){
+  const file=f.get("image");
+  const updates={name:f.get("name"),category:f.get("category"),description:f.get("description"),price:Number(f.get("price")),stock:Number(f.get("stock")),sizes:f.get("sizes")};
+  let oldFilename=null;
+  if(file && file.size){
+    const filename=`${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,"")}`;
+    const up=await sb.storage.from("product-images").upload(filename,file,{upsert:false});
+    if(up.error){toast(up.error.message,true);return;}
+    const {data:existing}=await sb.from("products").select("image_url").eq("id",id).single();
+    oldFilename=existing?existing.image_url:null;
+    updates.image_url=filename;
+  }
+  const {error}=await sb.from("products").update(updates).eq("id",id);
+  if(error){toast(error.message,true);return;}
+  if(oldFilename) await sb.storage.from("product-images").remove([oldFilename]);
+  toast("Product updated."); resetProductForm(); await loadAdminProducts(); await loadProducts();
 }
 
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
