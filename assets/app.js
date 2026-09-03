@@ -155,8 +155,8 @@ async function showAdmin(){
       <textarea name="description" placeholder="Description"></textarea>
       <div class="two"><input name="price" type="number" min="0" step=".01" placeholder="Price" required><input name="stock" type="number" min="0" placeholder="Stock" required></div>
       <input name="sizes" value="S,M,L,XL,XXL" placeholder="Sizes">
-      <input name="image" type="file" accept="image/png,image/jpeg,image/webp" required>
-      <p class="muted" id="currentImageNote"></p>
+      <input name="image_url" type="url" placeholder="Image URL (optional)">
+      <p class="muted">Paste a link to the product photo. Leave blank to show a placeholder.</p>
       <div class="two">
         <button class="button full" id="productSubmitBtn">Publish product</button>
         <button type="button" class="button secondary full" id="cancelEditBtn" style="display:none">Cancel edit</button>
@@ -218,10 +218,9 @@ async function editProduct(id){
   f.price.value=p.price;
   f.stock.value=p.stock;
   f.sizes.value=p.sizes||"S,M,L,XL,XXL";
-  f.image.required=false;
+  f.image_url.value=p.image_url||"";
   $("#adminFormTitle").textContent="Edit product";
   $("#productSubmitBtn").textContent="Save changes";
-  $("#currentImageNote").textContent=p.image_url?"Leave the image blank to keep the current photo.":"";
   $("#cancelEditBtn").style.display="inline-block";
   $("#drawerContent").scrollTop=0;
 }
@@ -229,10 +228,8 @@ async function editProduct(id){
 function resetProductForm(){
   const f=$("#productForm"); if(!f)return;
   f.reset(); f.id.value="";
-  f.image.required=true;
   $("#adminFormTitle").textContent="Add product";
   $("#productSubmitBtn").textContent="Publish product";
-  $("#currentImageNote").textContent="";
   $("#cancelEditBtn").style.display="none";
 }
 
